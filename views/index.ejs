@@ -3,9 +3,207 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Riv&Co.</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    Testing
+    <div class="mainForm">
+      <h1 id="title">Riv and Co.</h1>
+      <form action="/submit-form" method="post">
+        <!-- Text Inputs -->
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          placeholder="First Name"
+          required
+        /><br /><br />
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          placeholder="Last Name"
+          required
+        /><br /><br />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email Address"
+          required
+        /><br /><br />
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Phone"
+          required
+        /><br /><br />
+
+        <!-- Select Inputs -->
+        <select id="prefStylist" name="preferredStylist">
+          <option value="" disabled selected>Preferred Stylist?</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+          <option value="none">None</option></select
+        ><br /><br />
+
+        <select id="prefService" name="preferredService">
+          <option value="" disabled selected>
+            What service are you wanting?
+          </option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+          <option value="none">None</option></select
+        ><br /><br />
+
+        <!-- Checkbox Inputs -->
+        <label for="haircut"
+          >Would you like to add any of the following services?</label
+        ><br />
+        <input type="checkbox" id="haircut" name="haircut" value="haircut" />
+        <label for="haircut">Haircut</label><br />
+        <input type="checkbox" id="gloss" name="gloss" value="gloss" />
+        <label for="gloss">Gloss</label><br />
+        <input
+          type="checkbox"
+          id="conditioning"
+          name="conditioning"
+          value="conditioning"
+        />
+        <label for="conditioning">Conditioning Treatment</label><br /><br />
+
+        <!-- Date Inputs -->
+        <label for="specificDate">Is there a specific date you need?</label>
+        <input type="date" id="specificDate" name="specificDate" /><br /><br />
+
+        <!-- File Inputs -->
+        <label for="currentHairPhoto"
+          >*Upload a photo of your current hair in natural lighting. No selfies
+          or filters:</label
+        >
+        <input
+          type="file"
+          id="currentHairPhoto"
+          name="currentHairPhoto"
+        /><br /><br />
+        <label for="hairInspirationPhoto"
+          >* Upload a photo of your hair inspiration:</label
+        >
+        <input
+          type="file"
+          id="hairInspirationPhoto"
+          name="hairInspirationPhoto"
+        /><br /><br />
+
+        <!-- Date Input -->
+        <label for="lastColorServiceDate"
+          >When was your last color service?</label
+        >
+        <input
+          type="date"
+          id="lastColorServiceDate"
+          name="lastColorServiceDate"
+        /><br /><br />
+
+        <!-- Radio Inputs -->
+        <label for="permanentColor"
+          >Do you have permanent color on your hair?:</label
+        ><br />
+        <input
+          type="radio"
+          id="permanentColorYes"
+          name="permanentColor"
+          value="yes"
+        />
+        <label for="permanentColorYes">Yes</label><br />
+        <input
+          type="radio"
+          id="permanentColorNo"
+          name="permanentColor"
+          value="no"
+        />
+        <label for="permanentColorNo">No</label><br /><br />
+
+        <!-- Checkbox Inputs -->
+        <label for="hairDescription"
+          >How would you describe your hair? Select all that apply.</label
+        ><br />
+        <input type="checkbox" id="fineHair" name="fineHair" value="fine" />
+        <label for="fineHair">Fine</label><br />
+        <input
+          type="checkbox"
+          id="mediumHair"
+          name="mediumHair"
+          value="medium"
+        />
+        <label for="mediumHair">Medium</label><br />
+
+        <input type="checkbox" id="thickHair" name="thickHair" value="thick" />
+        <label for="thickHair">Thick</label><br />
+
+        <input
+          type="checkbox"
+          id="courseHair"
+          name="courseHair"
+          value="course"
+        />
+        <label for="courseHair">Course</label><br />
+
+        <input
+          type="checkbox"
+          id="straightHair"
+          name="straightHair"
+          value="stright"
+        />
+        <label for="straightHair">Straight</label><br />
+
+        <input type="checkbox" id="wavyHair" name="wavyHair" value="wavy" />
+        <label for="wavyHair">Wavy</label><br />
+
+        <input type="checkbox" id="curlyHair" name="curlyHair" value="curly" />
+        <label for="curlyHair">Curly</label><br />
+
+        <input type="checkbox" id="dryHair" name="dryHair" value="dry" />
+        <label for="dryHair">Dry</label><br />
+
+        <input type="checkbox" id="oilyHair" name="oilyHair" value="oily" />
+        <label for="oilyHair">Oily</label><br />
+
+        <input
+          type="checkbox"
+          id="damagedHair"
+          name="damagedHair"
+          value="damaged"
+        />
+        <label for="damagedHair">Damaged</label><br />
+
+        <br /><br />
+
+        <input
+          type="text"
+          id="medicalConditions"
+          name="medicalConditions"
+          placeholder="Do you have any medical conditions?"
+          required
+        /><br /><br />
+        <input id="submit" type="submit" value="Submit" />
+
+        <!-- Stylist Login Link -->
+      </form>
+      <br />
+      <br />
+      <br />
+      <a id="stylistLoginLink" href="loginPage/login.html">Stylist Login</a>
+    </div>
   </body>
 </html>

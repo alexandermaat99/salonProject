@@ -73,3 +73,49 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+app.get("/login", (req, res) => {
+  const error = "";
+  res.render("login", { error }); // Render the login form
+});
+
+// POST login route
+// POST login route modified for session handling
+app.post("/login", async (req, res) => {
+  let { email, password } = req.body;
+
+  email = email.toUpperCase(); // Convert email to uppercase
+
+  try {
+    const user = await knex("stylists").where({ email }).first();
+
+    if (!user) {
+      // User not found
+      const error = "Invalid credentials";
+      return res.render("login", { error });
+    }
+
+    const passwordMatch = user.password === password;
+
+    if (passwordMatch) {
+      // Authentication successful
+      req.session.userId = user.id;
+      req.session.isAdmin = user.admin;
+
+      if (user.admin) {
+        // Redirect to admin.ejs for admin users
+        return res.redirect("/admin");
+      } else {
+        // Redirect to user_home.ejs for non-admin users
+        return res.redirect("/stylist");
+      }
+    } else {
+      // Incorrect password
+      const error = "Invalid credentials";
+      return res.render("login", { error });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+});
