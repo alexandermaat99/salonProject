@@ -42,19 +42,18 @@ const knex = require("knex")({
 });
 
 function checkAuthentication(req, res, next) {
-  if (req.session && req.session.userId) {
-    // User is authenticated
+  console.log("Session data:", req.session); // Debugging line
+  if (req.session.userId) {
     next();
   } else {
-    // User is not authenticated, redirect to login page
     res.redirect("/login");
   }
 }
 
 // Admin check middleware
 function checkAdmin(req, res, next) {
-  if (req.session && req.session.isAdmin) {
-    // User is an admin
+  console.log("Admin check for user ID:", req.session.userId); // Debugging line
+  if (req.session.isAdmin) {
     next();
   } else {
     // User is not an admin, send access denied response
@@ -63,7 +62,7 @@ function checkAdmin(req, res, next) {
 }
 
 // dynamic port binding
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Route to render the index.ejs file
 app.get("/", (req, res) => {
@@ -101,28 +100,20 @@ app.post("/login", async (req, res) => {
       return res.render("login", { error });
     }
 
-    const passwordMatch = user.password === password; // Replace this with bcrypt comparison if you're hashing passwords
+    const passwordMatch = user.password === password;
 
     if (passwordMatch) {
       // Authentication successful
       req.session.userId = user.id;
       req.session.isAdmin = user.admin;
 
-      // Save the session before redirecting
-      req.session.save((err) => {
-        if (err) {
-          // Handle error
-          console.error(err);
-          res.status(500).send("Error saving session.");
-        } else {
-          // Redirect based on user role
-          if (user.admin) {
-            res.redirect("/admin");
-          } else {
-            res.redirect("/stylist");
-          }
-        }
-      });
+      if (user.admin) {
+        // Redirect to admin_home.ejs for admin users
+        return res.redirect("/admin");
+      } else {
+        // Redirect to user_home.ejs for non-admin users
+        return res.redirect("/testing");
+      }
     } else {
       // Incorrect password
       const error = "Invalid credentials";
@@ -131,6 +122,36 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server error");
+  }
+});
+
+app.post(
+  "/deleteUser/:id",
+  checkAuthentication,
+  checkAdmin,
+
+  async (req, res) => {
+    try {
+      await knex("stylists").where("styleID", req.params.id).del();
+      res.redirect("/admin");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error deleting user");
+    }
+  }
+);
+
+// POST login route modified for session handling
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  // ... existing login logic ...
+  if (passwordMatch) {
+    // Set session details on successful login
+    req.session.userId = user.id;
+    req.session.isAdmin = user.admin; // Assuming 'admin' is a boolean in your user table
+    res.redirect("/testing");
+  } else {
+    // ... handle failed login ...
   }
 });
 
@@ -219,22 +240,6 @@ app.post("/submit-form", async (req, res) => {
     res.status(500).send("Error processing your request");
   }
 });
-
-app.post(
-  "/deleteUser/:id",
-  checkAuthentication,
-  checkAdmin,
-
-  async (req, res) => {
-    try {
-      await knex("stylists").where("styleID", req.params.id).del();
-      res.redirect("/admin");
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error deleting user");
-    }
-  }
-);
 
 // Route to display the form for editing an existing stylist
 app.get("/editUser/:id", async (req, res) => {
