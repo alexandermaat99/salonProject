@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 // Session configuration
 app.use(
   session({
-    secret: "thisisthesecretkey", // Replace with your own secret
+    secret: "thisisthenewsecretkey", // Replace with your own secret
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }, // Use 'true' in a production environment with HTTPS
@@ -41,22 +41,23 @@ const knex = require("knex")({
   },
 });
 
-// Authentication middleware
 function checkAuthentication(req, res, next) {
-  console.log("Session data:", req.session); // Debugging line
-  if (req.session.userId) {
+  if (req.session && req.session.userId) {
+    // User is authenticated
     next();
   } else {
+    // User is not authenticated, redirect to login page
     res.redirect("/login");
   }
 }
 
 // Admin check middleware
 function checkAdmin(req, res, next) {
-  console.log("Admin check for user ID:", req.session.userId); // Debugging line
-  if (req.session.isAdmin) {
+  if (req.session && req.session.isAdmin) {
+    // User is an admin
     next();
   } else {
+    // User is not an admin, send access denied response
     res.status(403).send("Access denied");
   }
 }
@@ -85,6 +86,7 @@ app.get("/login", (req, res) => {
 
 // POST login route
 // POST login route modified for session handling
+// POST login route modified for session handling
 app.post("/login", async (req, res) => {
   let { email, password } = req.body;
 
@@ -99,20 +101,28 @@ app.post("/login", async (req, res) => {
       return res.render("login", { error });
     }
 
-    const passwordMatch = user.password === password;
+    const passwordMatch = user.password === password; // Replace this with bcrypt comparison if you're hashing passwords
 
     if (passwordMatch) {
       // Authentication successful
       req.session.userId = user.id;
       req.session.isAdmin = user.admin;
 
-      if (user.admin) {
-        // Redirect to admin.ejs for admin users
-        return res.redirect("/admin");
-      } else {
-        // Redirect to user_home.ejs for non-admin users
-        return res.redirect("/stylist");
-      }
+      // Save the session before redirecting
+      req.session.save((err) => {
+        if (err) {
+          // Handle error
+          console.error(err);
+          res.status(500).send("Error saving session.");
+        } else {
+          // Redirect based on user role
+          if (user.admin) {
+            res.redirect("/admin");
+          } else {
+            res.redirect("/stylist");
+          }
+        }
+      });
     } else {
       // Incorrect password
       const error = "Invalid credentials";
@@ -212,6 +222,8 @@ app.post("/submit-form", async (req, res) => {
 
 app.post(
   "/deleteUser/:id",
+  checkAuthentication,
+  checkAdmin,
 
   async (req, res) => {
     try {
