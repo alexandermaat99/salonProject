@@ -1,0 +1,118 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  user-select: none;
+}
+
+.custom-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-select__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  font-size: 22px;
+  font-weight: 300;
+  color: #333;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-options {
+  position: absolute;
+  display: none;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  background: #fff;
+  transition: all 0.4s;
+  z-index: 5;
+}
+
+.custom-select.open .custom-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-option {
+  position: relative;
+  display: block;
+  padding: 0 22px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+  line-height: 47px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.custom-option:hover {
+  cursor: pointer;
+  background-color: #e9e9e9;
+}
+
+.arrow {
+  position: relative;
+  height: 15px;
+  width: 15px;
+  margin-left: 10px;
+}
+
+.arrow:before,
+.arrow:after {
+  content: "";
+  position: absolute;
+  width: 0.15rem;
+  height: 100%;
+  transition: all 0.2s;
+}
+
+.arrow:before {
+  left: -5px;
+  transform: rotate(-45deg);
+  background-color: #333;
+}
+
+.arrow:after {
+  left: 5px;
+  transform: rotate(45deg);
+  background-color: #333;
+}
+
+.custom-select__trigger span {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+/* Unselected option */
+.custom-option:not(.selected):hover {
+  background-color: #e9e9e9;
+}
+
+/* Selected option */
+.custom-option.selected {
+  font-weight: 600;
+  background-color: #f2f2f2;
+}
+
+/* Arrow rotated state for when the dropdown is open */
+.custom-select.open .arrow:before {
+  transform: rotate(45deg);
+}
+
+.custom-select.open .arrow:after {
+  transform: rotate(-45deg);
+}
