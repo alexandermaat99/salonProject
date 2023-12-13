@@ -3,10 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stylist View</title>
   </head>
   <body>
@@ -19,6 +16,7 @@
           <th>Client First Name</th>
           <th>Client Last Name</th>
           <th>Client Email</th>
+          <th>Does this clien have permanent color?</th>
           <!-- Add more columns based on your client information -->
         </tr>
       </thead>
@@ -26,15 +24,10 @@
         <% clients.forEach((client) => { %>
           <tr>
             <td><%= client.timecreated %></td>
+            <a href="/stylist/<%= stylistId %>/clientInfo/<%= client.resID %>">
             <td><%= client.cusFName %></td>
             <td><%= client.cusLName %></td>
             <td><%= client.cusemail %></td>
-            <td>
-              <form action="/stylist/<%= stylistId %>/clientInfo" method="post">
-                <input type="hidden" name="resId" value="<%= client.resID %>">
-                <button type="submit">Client Details</button>
-              </form>
-            </td>
             <!-- Add more cells based on your client information -->
           </tr>
         <% }); %>
