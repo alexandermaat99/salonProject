@@ -104,7 +104,7 @@ app.post("/login", async (req, res) => {
 
     if (passwordMatch) {
       // Authentication successful
-      req.session.userId = user.id;
+      req.session.userId = user.styleID;
       req.session.isAdmin = user.admin;
 
       if (user.admin) {
