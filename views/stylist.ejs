@@ -3,10 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stylist View</title>
   </head>
   <body>
@@ -19,20 +16,20 @@
           <th>Client First Name</th>
           <th>Client Last Name</th>
           <th>Client Email</th>
-          <th>Does this clien have permanent color?</th>
+          <th>Does this client have permanent color?</th>
           <!-- Add more columns based on your client information -->
         </tr>
       </thead>
       <tbody>
         <% clients.forEach((client) => { %>
-          <tr>
-            <td><%= client.timecreated %></td>
-            <td><%= client.cusFName %></td>
-            <td><%= client.cusLName %></td>
-            <td><%= client.cusemail %></td>
-            <td><%= client.permcolor %></td>
-            <!-- Add more cells based on your client information -->
-          </tr>
+        <tr>
+          <td><%= client.timecreated %></td>
+          <td><%= client.cusFName %></td>
+          <td><%= client.cusLName %></td>
+          <td><%= client.cusemail %></td>
+          <td><%= client.permcolor %></td>
+          <!-- Add more cells based on your client information -->
+        </tr>
         <% }); %>
       </tbody>
     </table>
