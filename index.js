@@ -37,7 +37,7 @@ const knex = require("knex")({
   connection: {
     host: "localhost",
     user: "postgres",
-    password: "admin",
+    password: "Ramsbasketball22",
     database: "salon2",
     port: 5432,
   },
@@ -449,8 +449,8 @@ app.get("/stylist/:id", checkAuthentication, async (req, res) => {
 
 // Add this route in your index.js file
 app.get("/clientInfo", checkAuthentication, async (req, res) => {
-  const stylistId = req.params.stylistId;
-  const resId = req.params.resId;
+  const stylistId = req.query.stylistId;
+  const resId = req.query.resId;
 
   try {
     // Retrieve client information based on resId
