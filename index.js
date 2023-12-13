@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session"); // Added for session handling
+const flash = require("connect-flash");
 const bcrypt = require("bcrypt"); // Added for password hashing
 
 const app = express();
@@ -11,6 +12,7 @@ const path = require("path");
 
 app.use(express.static("public", { extensions: false }));
 app.use("/public", express.static(__dirname + "/public"));
+app.use(flash());
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
@@ -159,7 +161,13 @@ app.get("/admin", async (req, res) => {
   if (req.session.isAdmin) {
     try {
       const stylists = await knex.select("*").from("stylists");
-      res.render("admin", { stylists: stylists });
+      res.render("admin", {
+        stylists: stylists,
+        messages: {
+          success: req.flash("success"),
+          error: req.flash("error"),
+        },
+      });
     } catch (error) {
       console.error(error);
       res.status(500).send("Error fetching stylists");
@@ -280,5 +288,74 @@ app.post("/editUser/:id", async (req, res) => {
   } catch (error) {
     console.error("Failed to update stylist:", error);
     res.status(500).send("Failed to update stylist.");
+  }
+});
+
+app.get("/addStylist", (req, res) => {
+  // Ensure only authorized users can access this page
+  // For example, you could use your checkAdmin middleware here
+
+  res.render("addStylist"); // Render the form for adding a new stylist
+});
+
+app.post("/addStylist", async (req, res) => {
+  // Extract information from the form submission
+  const { fName, lName, email, phone, password, isAdmin } = req.body;
+
+  try {
+    // Add your logic to add a new stylist to the database
+    // For example, using knex to insert a new record
+
+    res.redirect("/path-after-successful-addition"); // Redirect after successful addition
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error occurred while adding stylist");
+  }
+});
+
+app.get("/editStylist/:styleID", async (req, res) => {
+  const styleID = req.params.styleID;
+
+  try {
+    // Fetch the stylist details from the database using the styleID
+    const stylist = await knex("stylists").where("styleID", styleID).first();
+
+    if (stylist) {
+      res.render("editStylist", { stylist });
+    } else {
+      res.status(404).send("Stylist not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send("Server error occurred while fetching stylist details");
+  }
+});
+
+app.post("/editStylist/:styleID", async (req, res) => {
+  const styleID = req.params.styleID;
+  let { stylFName, stylLName, stylTel, email, calLink, admin } = req.body;
+  stylFName = stylFName.toUpperCase(); // Convert to uppercase
+  stylLName = stylLName.toUpperCase(); // Convert to uppercase
+  email = email.toUpperCase(); // Convert to uppercase
+
+  try {
+    // Logic to update the stylist's details in the database
+    await knex("stylists").where("styleID", styleID).update({
+      stylFName: stylFName,
+      stylLName: stylLName,
+      stylTel: stylTel,
+      email: email,
+      calLink: calLink,
+      admin: admin,
+    });
+
+    req.flash("success", "Stylist updated successfully!");
+    res.redirect("/admin"); // Redirect after successful update
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "Server error occurred while updating stylist");
+    res.redirect("/admin"); // Redirect also in case of an error
   }
 });

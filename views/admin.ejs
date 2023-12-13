@@ -60,7 +60,7 @@
           <td><%= stylists[i].password %></td>
           <td><%= stylists[i].admin %></td>
           <td>
-            <form action="/editUser/<%= stylists[i].id %>" method="GET">
+            <form action="/editStylist/<%= stylists[i].styleID %>" method="GET">
               <button type="submit" class="edit-button">Edit</button>
             </form>
           </td>
@@ -80,8 +80,8 @@
     </table>
     <br /><br />
 
-    <form style="text-align: right" action="/addUser" method="GET">
-      <button type="submit">Add New User</button>
+    <form style="text-align: right" action="/addStylist" method="GET">
+      <button type="submit">Add Stylist</button>
     </form>
     <script>
       function confirmDelete() {
@@ -90,5 +90,11 @@
         );
       }
     </script>
+
+    <% if (messages.success) { %>
+    <div class="alert alert-success"><%= messages.success %></div>
+    <% } %> <% if (messages.error) { %>
+    <div class="alert alert-danger"><%= messages.error %></div>
+    <% } %>
   </body>
 </html>

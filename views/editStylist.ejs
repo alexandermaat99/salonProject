@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Stylist</title>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <!-- Adjust the path as needed -->
+  </head>
+  <body>
+    <h1>Edit Stylist</h1>
+    <form action="/editStylist/<%= stylist.styleID %>" method="POST">
+      <label for="stylFName">First Name:</label>
+      <input
+        type="text"
+        id="stylFName"
+        name="stylFName"
+        value="<%= stylist.stylFName %>"
+        required
+      /><br />
+
+      <label for="stylLName">Last Name:</label>
+      <input
+        type="text"
+        id="stylLName"
+        name="stylLName"
+        value="<%= stylist.stylLName %>"
+        required
+      /><br />
+
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="<%= stylist.email %>"
+        required
+      /><br />
+
+      <label for="stylTel">Phone:</label>
+      <input
+        type="tel"
+        id="stylTel"
+        name="stylTel"
+        value="<%= stylist.stylTel %>"
+      /><br />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        value="<%= stylist.password %>"
+        required
+      /><br />
+
+      <label for="calLink">Scheduling Link:</label>
+      <input
+        type="text"
+        id="calLink"
+        name="calLink"
+        value="<%= stylist.calLink %>"
+        required
+      /><br />
+
+      <label for="admin">Admin:</label>
+      <input type="checkbox" id="admin" name="admin" <%= stylist.admin ?
+      'checked' : '' %>><br />
+
+      <button type="submit">Update Stylist</button>
+    </form>
+  </body>
+</html>
