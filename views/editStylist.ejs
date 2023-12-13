@@ -4,70 +4,99 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Stylist</title>
-    <link rel="stylesheet" href="/public/css/style.css" />
-    <!-- Adjust the path as needed -->
+    <link rel="stylesheet" href="/public/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Edit Stylist</h1>
-    <form action="/editStylist/<%= stylist.styleID %>" method="POST">
-      <label for="stylFName">First Name:</label>
-      <input
-        type="text"
-        id="stylFName"
-        name="stylFName"
-        value="<%= stylist.stylFName %>"
-        required
-      /><br />
+    <div class="container">
+      <header class="header">
+        <a href="/admin" class="back-button material-icons-round">arrow_back</a>
+        <h1>Edit Stylist</h1>
+      </header>
+      <form
+        action="/editStylist/<%= stylist.styleID %>"
+        method="POST"
+        class="form-stylist"
+      >
+        <label for="stylFName">First Name:</label>
+        <input
+          type="text"
+          id="stylFName"
+          name="stylFName"
+          value="<%= stylist.stylFName %>"
+          required
+        />
 
-      <label for="stylLName">Last Name:</label>
-      <input
-        type="text"
-        id="stylLName"
-        name="stylLName"
-        value="<%= stylist.stylLName %>"
-        required
-      /><br />
+        <label for="stylLName">Last Name:</label>
+        <input
+          type="text"
+          id="stylLName"
+          name="stylLName"
+          value="<%= stylist.stylLName %>"
+          required
+        />
 
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value="<%= stylist.email %>"
-        required
-      /><br />
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="<%= stylist.email %>"
+          required
+        />
 
-      <label for="stylTel">Phone:</label>
-      <input
-        type="tel"
-        id="stylTel"
-        name="stylTel"
-        value="<%= stylist.stylTel %>"
-      /><br />
+        <label for="stylTel">Phone:</label>
+        <input
+          type="tel"
+          id="stylTel"
+          name="stylTel"
+          value="<%= stylist.stylTel %>"
+        />
 
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value="<%= stylist.password %>"
-        required
-      /><br />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value="<%= stylist.password %>"
+          required
+        />
 
-      <label for="calLink">Scheduling Link:</label>
-      <input
-        type="text"
-        id="calLink"
-        name="calLink"
-        value="<%= stylist.calLink %>"
-        required
-      /><br />
+        <label for="calLink">Scheduling Link:</label>
+        <input
+          type="text"
+          id="calLink"
+          name="calLink"
+          value="<%= stylist.calLink %>"
+          required
+        />
 
-      <label for="admin">Admin:</label>
-      <input type="checkbox" id="admin" name="admin" <%= stylist.admin ?
-      'checked' : '' %>><br />
+        <!-- ... other form fields ... -->
 
-      <button type="submit">Update Stylist</button>
-    </form>
+        <label for="admin">Admin:</label>
+        <input type="checkbox" id="admin" name="admin" <%= stylist.admin ?
+        'checked' : '' %> >
+
+        <!-- ... rest of your form ... -->
+
+        <button type="submit" class="submit-btn">Update Stylist</button>
+        <script>
+          document
+            .getElementById("admin")
+            .addEventListener("change", function () {
+              var admin = this.checked;
+              console.log(admin); // Add this for debugging
+              // Additional code to handle the change event
+            });
+        </script>
+      </form>
+    </div>
   </body>
 </html>

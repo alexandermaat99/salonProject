@@ -1,0 +1,281 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.container {
+  padding: 15px;
+}
+
+.menu-icon {
+  font-size: 24px;
+}
+
+.admin-label {
+  display: block;
+}
+
+.stylist-list {
+  margin-top: 20px;
+}
+
+.stylist-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-icon,
+.delete-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #6200ea;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-form {
+  display: inline;
+}
+
+.add-new-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+}
+
+.add-button {
+  font-size: 1rem;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.material-icons-round {
+  font-size: 24px;
+}
+.stylist-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-form {
+  margin-right: 10px;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-image {
+  text-align: center;
+  align-content: center;
+  margin: 0 auto;
+}
+
+.user-image img {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.header-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 10px 20px;
+}
+
+.menu-icon {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.form-stylist {
+  width: 80vw; /* Adjusted width */
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-stylist label,
+.form-stylist input,
+.form-stylist button,
+.toggle-container .switch {
+  display: block;
+  width: 75vw;
+  margin-bottom: 10px;
+}
+
+.form-stylist input,
+.form-stylist button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-stylist button {
+  background-color: #6200ea;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  background-color: #6200ea;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.form-stylist .submit-btn {
+  background-color: #6200ea;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 80vw;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px; /* Length of the switch */
+  height: 34px; /* Height of the switch */
+  margin: 10px 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px; /* Full pill shape */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px; /* The diameter of the slider button */
+  width: 26px; /* The diameter of the slider button */
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%; /* Circular shape */
+}
+
+input:checked + .slider {
+  background-color: #6200ea; /* Switch on color */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px); /* Slide the button to the right */
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+  width: 58px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.menu {
+  display: none;
+  /* Add other styles for positioning and appearance */
+}
+.menu {
+  display: none;
+  position: absolute;
+  top: 60px; /* Adjust the top position to avoid covering other content */
+  right: 10px; /* Adjust the right position as needed */
+  background-color: white; /* Set the background color of the menu */
+  border: 1px solid #ccc; /* Add a border for better visibility */
+  padding: 10px; /* Add padding for spacing between items */
+  z-index: 1; /* Set a higher z-index value */
+  /* Add other styling properties as needed */
+}
+
+.logout-button {
+  display: block; /* Ensure the button is displayed as a block element */
+  margin-top: 10px; /* Add margin to separate it from the "Clients" link */
+  z-index: 2; /* Set a higher z-index value than the "menu" */
+  /* Add other styling properties as needed */
+}
