@@ -1,9 +1,46 @@
+<!-- views/clientInfo.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Client Info</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Client Information</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Client Information</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Time of Submission:</td>
+          <td><%= client.timecreated %></td>
+        </tr>
+        <tr>
+          <td>Client First Name:</td>
+          <td><%= client.cusFName %></td>
+        </tr>
+        <tr>
+          <td>Client Last Name:</td>
+          <td><%= client.cusLName %></td>
+        </tr>
+        <tr>
+          <td>Client Email:</td>
+          <td><%= client.cusemail %></td>
+        </tr>
+        <!-- Add more rows based on your client information -->
+      </tbody>
+    </table>
+
+    <a href="/stylist/<%= stylistId %>">Back to Stylist View</a>
+  </body>
 </html>
+

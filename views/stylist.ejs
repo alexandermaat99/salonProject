@@ -26,6 +26,7 @@
         <% clients.forEach((client) => { %>
           <tr>
             <td><%= client.timecreated %></td>
+            <a href="/stylist/<%= stylistId %>/clientInfo/<%= client.resID %>">
             <td><%= client.cusFName %></td>
             <td><%= client.cusLName %></td>
             <td><%= client.cusemail %></td>

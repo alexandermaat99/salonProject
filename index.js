@@ -446,3 +446,23 @@ app.get("/stylist/:id", checkAuthentication, async (req, res) => {
     res.status(500).send("Failed to retrieve client information.");
   }
 });
+
+// Add this route in your index.js file
+app.get("/stylist/:stylistId/client/:resId", checkAuthentication, async (req, res) => {
+  const stylistId = req.params.stylistId;
+  const resId = req.params.resId;
+
+  try {
+    // Retrieve client information based on resId
+    const client = await knex("surveyResponse")
+      .where("resID", resId)
+      .first();
+
+    // Render a page with the client's surveyResponse details
+    res.render("clientInfo", { client, stylistId });
+  } catch (error) {
+    console.error("Failed to retrieve client information:", error);
+    res.status(500).send("Failed to retrieve client information.");
+  }
+});
+
