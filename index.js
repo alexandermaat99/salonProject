@@ -448,7 +448,7 @@ app.get("/stylist/:id", checkAuthentication, async (req, res) => {
 });
 
 // Add this route in your index.js file
-app.get("/stylist/:stylistId/client/:resId", checkAuthentication, async (req, res) => {
+app.get("clientInfo", checkAuthentication, async (req, res) => {
   const stylistId = req.params.stylistId;
   const resId = req.params.resId;
 
