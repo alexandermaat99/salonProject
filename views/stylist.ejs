@@ -16,7 +16,6 @@
           <th>Client First Name</th>
           <th>Client Last Name</th>
           <th>Client Email</th>
-          <th>Does this clien have permanent color?</th>
           <!-- Add more columns based on your client information -->
         </tr>
       </thead>
@@ -28,7 +27,7 @@
             <td><%= client.cusLName %></td>
             <td><%= client.cusemail %></td>
             <td>
-              <form action="/stylist/<%= stylistId %>/clientInfo" method="post">
+              <form action="/stylist/<%= stylistId %>/clientInfo" method="get">
                 <input type="hidden" name="resId" value="<%= client.resID %>">
                 <button type="submit">Client Details</button>
               </form>
