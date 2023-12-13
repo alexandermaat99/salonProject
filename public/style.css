@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif;
   background-color: #f0f0f0;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -57,6 +58,7 @@ h1 {
 }
 
 .icon-button {
+  flex-grow: 1; /* If using flex in the parent, this will make the button expand */
   background: none;
   border: none;
   cursor: pointer;
@@ -71,7 +73,7 @@ h1 {
 }
 
 .add-new-card {
-  display: flex;
+  display: flex; /* Uncommented */
   justify-content: center;
   align-items: center;
   padding: 10px;
@@ -79,7 +81,19 @@ h1 {
   background-color: #f0f0f0;
 }
 
+.add-new-card .icon-button span {
+  flex-grow: 1; /* This will make the span expand within the button */
+  text-align: center;
+}
+
+.add-new-card form {
+  width: 100%; /* Ensure form takes full width */
+  height: 100%; /* Ensure form takes full height */
+}
+
 .add-button {
+  width: 100%; /* Ensures the button takes full width */
+  height: 100%; /* Ensures the button takes full height */
   font-size: 1rem;
   color: #333;
   background-color: transparent;
