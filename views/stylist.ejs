@@ -27,11 +27,13 @@
             <td><%= client.cusLName %></td>
             <td><%= client.cusemail %></td>
             <td>
-              <form action="/stylist/<%= stylistId %>/clientInfo" method="get">
-                <input type="hidden" name="resId" value="<%= client.resID %>">
-                <button type="submit">Client Details</button>
-              </form>
-            </td>
+              <td>
+                <form action="/clientInfo" method="get">
+                  <input type="hidden" name="resId" value="<%= client.resID %>">
+                  <input type="hidden" name="stylistId" value="<%= stylistId %>">
+                  <button type="submit">Client Details</button>
+                </form>
+              </td>
             <!-- Add more cells based on your client information -->
           </tr>
         <% }); %>
