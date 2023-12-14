@@ -1,0 +1,462 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+}
+
+h1 {
+  margin: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+.container {
+  padding: 15px;
+}
+
+.menu-icon {
+  font-size: 24px;
+}
+
+.admin-label {
+  display: block;
+}
+
+.stylist-list {
+  margin-top: 20px;
+}
+
+.stylist-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-icon,
+.delete-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #3a7fa5;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.icon-button {
+  flex-grow: 1; /* If using flex in the parent, this will make the button expand */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-form {
+  display: inline;
+}
+
+.add-new-card {
+  display: flex; /* Uncommented */
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #3a7fa5;
+}
+.add-new-card span {
+  color: white;
+}
+
+.add-new-card .icon-button span {
+  flex-grow: 1; /* This will make the span expand within the button */
+  text-align: center;
+}
+
+.add-new-card form {
+  width: 100%; /* Ensure form takes full width */
+  height: 100%; /* Ensure form takes full height */
+}
+
+.add-button {
+  width: 100%; /* Ensures the button takes full width */
+  height: 100%; /* Ensures the button takes full height */
+  font-size: 1rem;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.material-icons-round {
+  font-size: 24px;
+}
+.stylist-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-form {
+  margin-right: 10px;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-image {
+  text-align: center;
+  align-content: center;
+  margin: 0 auto;
+}
+
+.user-image img {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.header-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 10px 20px;
+}
+
+.menu-icon {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.form-stylist {
+  width: 80vw; /* Adjusted width */
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-stylist label,
+.form-stylist input,
+.form-stylist button,
+.toggle-container .switch {
+  display: block;
+  width: 75vw;
+  margin-bottom: 10px;
+}
+
+.form-stylist input,
+.form-stylist button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-stylist button {
+  background-color: #3a7fa5;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 24px; /* Adjust size as necessary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3a7fa5; /* Use your theme color or another color that suits your design */
+}
+
+.back-button::-moz-focus-inner {
+  border: 0;
+}
+
+.back-button:focus {
+  outline: none;
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Slight background color on hover */
+}
+
+.form-stylist .submit-btn {
+  background-color: #3a7fa5;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 80vw;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px; /* Length of the switch */
+  height: 34px; /* Height of the switch */
+  margin: 10px 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px; /* Full pill shape */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px; /* The diameter of the slider button */
+  width: 26px; /* The diameter of the slider button */
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%; /* Circular shape */
+}
+
+input:checked + .slider {
+  background-color: #3a7fa5; /* Switch on color */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px); /* Slide the button to the right */
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+  width: 58px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.menu {
+  display: none;
+  /* Add other styles for positioning and appearance */
+}
+.menu {
+  display: none;
+  position: absolute;
+  top: 60px; /* Adjust the top position to avoid covering other content */
+  right: 10px; /* Adjust the right position as needed */
+  background-color: white; /* Set the background color of the menu */
+  border: 1px solid #ccc; /* Add a border for better visibility */
+  padding: 10px; /* Add padding for spacing between items */
+  z-index: 1; /* Set a higher z-index value */
+  /* Add other styling properties as needed */
+  padding: 20px;
+  font-size: x-large;
+  border-radius: 5px;
+}
+
+.logout-button {
+  display: block; /* Ensure the button is displayed as a block element */
+  z-index: 2; /* Set a higher z-index value than the "menu" */
+  /* Add other styling properties as needed */
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.profile-details p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.edit-button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.edit-profile-btn {
+  background-color: #3a7fa5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.user-profile {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  margin: 0;
+  color: #3a7fa5;
+  font-weight: 500;
+}
+
+.back-button-form {
+  margin-right: 20px;
+}
+
+.table-container {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+.client-actions {
+  display: flex;
+  align-items: center;
+}
+
+.details-button,
+.delete-button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #3a7fa5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+}
+
+.details-form,
+.delete-form {
+  display: inline;
+}
+@media (max-width: 768px) {
+  .header-container,
+  .table-container {
+    padding: 0 10px; /* Add padding on the sides */
+  }
+
+  .page-title {
+    font-size: 18px; /* Smaller font size for mobile */
+  }
+
+  .back-button-form,
+  .client-actions form {
+    width: 100%; /* Full width buttons */
+    margin-bottom: 10px; /* Space between buttons */
+  }
+
+  .details-button,
+  .delete-button {
+    padding: 10px; /* Larger touch area */
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  button.back-button {
+    width: 20vw;
+  }
+
+  .client-actions {
+    flex-direction: column; /* Stack buttons vertically */
+  }
+
+  th,
+  td {
+    padding: 8px; /* Reduce padding */
+    font-size: 14px; /* Smaller font size for mobile */
+  }
+}

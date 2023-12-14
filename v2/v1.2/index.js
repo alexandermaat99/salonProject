@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session"); // Added for session handling
 const flash = require("connect-flash");
+const bcrypt = require("bcrypt"); // Added for password hashing
 
 const app = express();
 const path = require("path");
@@ -34,11 +35,11 @@ app.use(
 const knex = require("knex")({
   client: "pg",
   connection: {
-    host: process.env.RDS_HOSTNAME || "localhost",
-    user: process.env.RDS_USERNAME || "postgres",
-    password: process.env.RDS_PASSWORD || "Ramsbasketball22",
-    database: process.env.RDS_DB_NAME || "salon2",
-    port: process.env.RDS_PORT || 5432,
+    host: "localhost",
+    user: "postgres",
+    password: "Ramsbasketball22",
+    database: "salon2",
+    port: 5432,
   },
 });
 
