@@ -4,22 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Survey</title>
+    <link rel="stylesheet" href="/public/surveyEdit.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <a href="/survey" class="back-button">Back to Survey</a>
+    <div class="page-container">
+      <!-- Full page container to center the card vertically -->
+      <div class="header-container">
+        <a href="/survey" class="back-button material-icons-round"
+          >arrow_back</a
+        >
+        <h1 class="page-title">Edit Survey</h1>
+      </div>
 
-    <!-- Use 'service' here, not 'services' -->
-    <h1>Edit Survey for <%= service.description %></h1>
-    <form action="/update-survey/<%= service.servicesID %>" method="post">
-      <!-- Include input field pre-populated with the service's current data -->
-      <input
-        type="text"
-        name="description"
-        value="<%= service.description %>"
-        placeholder="Service Description"
-        required
-      />
-      <button type="submit">Update Survey</button>
-    </form>
+      <div class="card-container">
+        <!-- Container for the card to be centered -->
+        <form
+          action="/update-survey/<%= service.servicesID %>"
+          method="post"
+          class="form-stylist card"
+        >
+          <!-- Include input field pre-populated with the service's current data -->
+          <input
+            type="text"
+            name="description"
+            class="input-field"
+            value="<%= service.description %>"
+            placeholder="Service Description"
+            required
+          />
+          <br />
+          <br />
+          <button type="submit" class="submit-btn">Update Survey</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

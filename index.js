@@ -78,9 +78,9 @@ function formatTimestamp(timestamp) {
 const PORT = process.env.PORT || 3000;
 
 // Route to render the index.ejs file
-app.get("/", (req, res) => {
-  res.render("index");
-});
+// app.get("/", (req, res) => {
+//   res.render("index");
+// });
 
 // app.get("/testing", (req, res) => {
 //   res.render("testing");
@@ -164,7 +164,7 @@ app.post("/login", async (req, res) => {
     // Set session details on successful login
     req.session.userId = user.id;
     req.session.isAdmin = user.admin; // Assuming 'admin' is a boolean in your user table
-    res.redirect("/testing");
+    res.redirect("/");
   } else {
     // ... handle failed login ...
   }
@@ -260,13 +260,13 @@ app.get("/user", checkAuthentication, async (req, res) => {
 // });
 
 // Route to render the admin.ejs file
-app.get("/testing", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const stylists = await knex.select("*").from("stylists");
     const services = await knex.select("*").from("services");
 
     // Render the EJS template and pass the stylists and services data
-    res.render("testing", { stylists: stylists, services: services });
+    res.render("index", { stylists: stylists, services: services });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error fetching data");

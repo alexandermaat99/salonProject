@@ -90,7 +90,7 @@ input#cusTel {
 }
 
 input[type="submit"] {
-  background-color: #007bff; /* Blue background for submit button */
+  background-color: #3a7fa5; /* Blue background for submit button */
   color: white;
 }
 
@@ -175,6 +175,11 @@ button#submitForm {
   width: 70vw;
   padding: 5px;
   font-size: medium;
+  background-color: #3a7fa5;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
 }
 
 button#loginButton {

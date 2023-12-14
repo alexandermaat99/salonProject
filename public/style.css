@@ -52,7 +52,7 @@ a {
   bottom: 20px;
   right: 20px;
   padding: 10px 15px;
-  background-color: #6200ea;
+  background-color: #3a7fa5;
   color: #fff;
   border-radius: 50%;
   text-align: center;
@@ -82,7 +82,10 @@ a {
   align-items: center;
   padding: 10px;
   margin-top: 10px;
-  background-color: #f0f0f0;
+  background-color: #3a7fa5;
+}
+.add-new-card span {
+  color: white;
 }
 
 .add-new-card .icon-button span {
@@ -189,7 +192,7 @@ a {
 }
 
 .form-stylist button {
-  background-color: #6200ea;
+  background-color: #3a7fa5;
   color: #fff;
   cursor: pointer;
   border: none;
@@ -204,7 +207,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6200ea; /* Use your theme color or another color that suits your design */
+  color: #3a7fa5; /* Use your theme color or another color that suits your design */
 }
 
 .back-button::-moz-focus-inner {
@@ -220,7 +223,7 @@ a {
 }
 
 .form-stylist .submit-btn {
-  background-color: #6200ea;
+  background-color: #3a7fa5;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -271,7 +274,7 @@ a {
 }
 
 input:checked + .slider {
-  background-color: #6200ea; /* Switch on color */
+  background-color: #3a7fa5; /* Switch on color */
 }
 
 input:checked + .slider:before {
@@ -309,7 +312,6 @@ input:checked + .slider:before {
 
 .logout-button {
   display: block; /* Ensure the button is displayed as a block element */
-  margin-top: 10px; /* Add margin to separate it from the "Clients" link */
   z-index: 2; /* Set a higher z-index value than the "menu" */
   /* Add other styling properties as needed */
 }
@@ -331,7 +333,7 @@ p {
 }
 
 .edit-profile-btn {
-  background-color: #6200ea;
+  background-color: #3a7fa5;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -359,7 +361,7 @@ p {
 
 .page-title {
   margin: 0;
-  color: #6200ea;
+  color: #3a7fa5;
   font-weight: 500;
 }
 
@@ -405,7 +407,7 @@ tr:hover {
 .delete-button {
   margin-right: 10px;
   padding: 5px 10px;
-  background-color: #6200ea;
+  background-color: #3a7fa5;
   color: white;
   border: none;
   border-radius: 4px;
