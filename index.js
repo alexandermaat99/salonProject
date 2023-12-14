@@ -3,7 +3,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session"); // Added for session handling
 const flash = require("connect-flash");
-const bcrypt = require("bcrypt"); // Added for password hashing
 
 const app = express();
 const path = require("path");
