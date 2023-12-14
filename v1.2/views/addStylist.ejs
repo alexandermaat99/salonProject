@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Stylist</title>
+    <link rel="stylesheet" href="/public/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="top-right">
+          <!-- Placeholder for any top-right content or icons -->
+        </div>
+      </header>
+
+      <a href="/admin" class="back-button material-icons-round">arrow_back</a>
+      <div class="form-container">
+        <h1>Add New Stylist</h1>
+        <form action="/addStylist" method="POST" class="form-stylist">
+          <label for="stylFName">First Name:</label>
+          <input type="text" id="stylFName" name="stylFName" required /><br />
+
+          <label for="stylLName">Last Name:</label>
+          <input type="text" id="stylLName" name="stylLName" required /><br />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required /><br />
+
+          <label for="stylTel">Phone:</label>
+          <input type="tel" id="stylTel" name="stylTel" /><br />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required /><br />
+
+          <label for="calLink">Scheduling Link:</label>
+          <input type="text" id="calLink" name="calLink" required /><br />
+
+          <div class="toggle-container">
+            <label for="adminToggle">Admin:</label>
+            <label class="switch">
+              <input type="checkbox" id="adminToggle" name="admin" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn">Add Stylist</button>
+          <script>
+            document
+              .getElementById("adminToggle")
+              .addEventListener("change", function () {
+                var admin = this.checked;
+                // You can now use the `isAdmin` variable to determine if the admin toggle is checked
+              });
+          </script>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

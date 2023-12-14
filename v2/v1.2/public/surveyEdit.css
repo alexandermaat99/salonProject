@@ -1,0 +1,129 @@
+/* Ensure that the base styles are mobile-first */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  margin-right: 50vw;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.page-title,
+.back-button {
+  font-size: 1em; /* Adjust size for mobile */
+}
+
+.back-button {
+  color: #3a7fa5;
+}
+.form-container {
+  text-align: center;
+  padding: 10px;
+}
+
+.add-service-form input {
+  width: 50vw;
+  margin-bottom: 10px; /* Space between input and button */
+}
+
+.submit-btn {
+  width: 100%; /* Full width on mobile */
+}
+
+.service-list-container {
+  padding: 10px;
+}
+
+.service-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.description-text {
+  flex-grow: 1; /* Allows text to fill space */
+}
+
+.service-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-form {
+  margin-left: 10px; /* Space between buttons */
+}
+
+.icon-button {
+  border: none;
+  background: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.material-icons-round {
+  font-size: 24px; /* Icon size */
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers the card-container vertically */
+  align-items: center; /* Centers the card-container horizontally */
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px; /* Space from the top of the viewport */
+}
+
+/* Media Query for larger screens if needed */
+@media (min-width: 768px) {
+  .add-service-form input,
+  .submit-btn {
+    max-width: 500px; /* Maximum width of form elements */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card-container {
+    padding: 15px;
+  }
+
+  /* Adjustments for larger screen layout */
+  .service-card {
+    padding: 15px;
+  }
+
+  .action-form {
+    margin-left: 15px; /* More space between buttons on larger screens */
+  }
+}
+
+button.submit-btn {
+  width: 30vw;
+}
+/* Add any additional styling you need below */
+
+form.form-stylist.card {
+  width: 40vw;
+  text-align: center;
+}
