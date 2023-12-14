@@ -3,10 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Client Information</title>
   </head>
   <body>
@@ -22,26 +19,43 @@
       <tbody>
         <tr>
           <td>Time of Submission:</td>
-          <td><%= client.timecreated %></td>
+          <td><%= formatTimestamp(client.timeCreated) %></td>
         </tr>
+
         <tr>
           <td>Client First Name:</td>
           <td><%= client.cusFName %></td>
         </tr>
+
         <tr>
           <td>Client Last Name:</td>
           <td><%= client.cusLName %></td>
         </tr>
+
         <tr>
           <td>Client Email:</td>
-          <td><%= client.cusemail %></td>
+          <td><%= client.cusTel %></td>
         </tr>
+
+        <tr>
+          <td>Date of their last service:</td>
+          <td><%= formatDate(client.dateLastServ) %></td>
+        </tr>
+
+        <tr>
+          <td>Medical condition?:</td>
+          <td><%= client.medCond %></td>
+        </tr>
+
+        <tr>
+          <td>Service Chosen:</td>
+          <td><%= client.serviceDescription %></td>
+        </tr>
+
         <!-- Add more rows based on your client information -->
       </tbody>
     </table>
-    
+
     <a href="/stylist/<%= stylistId %>">Back to Stylist View</a>
   </body>
 </html>
-
-

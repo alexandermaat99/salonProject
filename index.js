@@ -51,6 +51,13 @@ function checkAuthentication(req, res, next) {
     res.redirect("/login");
   }
 }
+function formatDate(timestamp) {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+  const day = date.getDate().toString().padStart(2, "0");
+  return `${month}/${day}/${year}`; // Formats to MM/DD/YYYY
+}
 
 // Admin check middleware
 function checkAdmin(req, res, next) {
@@ -61,6 +68,10 @@ function checkAdmin(req, res, next) {
     // User is not an admin, send access denied response
     res.status(403).send("Access denied");
   }
+}
+function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleString(); // Converts to a string using locale conventions
 }
 
 // dynamic port binding
@@ -115,7 +126,7 @@ app.post("/login", async (req, res) => {
         return res.redirect("/admin");
       } else {
         // Redirect to user_home.ejs for non-admin users
-        return res.redirect("/testing");
+        return res.redirect("/user");
       }
     } else {
       // Incorrect password
@@ -163,22 +174,23 @@ app.post("/login", async (req, res) => {
 app.get("/admin", checkAdmin, checkAuthentication, async (req, res) => {
   if (req.session.isAdmin) {
     try {
-      // Assuming the user's ID is stored in req.session.userId
       const userId = req.session.userId;
 
-      // Fetch stylFName of the logged-in user from the database
+      // Fetch user details from the database
       const user = await knex("stylists")
-        .select("stylFName")
-        .where({ styleID: userId }) // Replace 'id' with the appropriate column name for user ID
+        .select("stylFName", "styleID") // Include styleID in the select
+        .where({ styleID: userId })
         .first();
 
       if (user) {
         const stylFName = user.stylFName;
+        const styleID = user.styleID; // Get styleID from the user object
         const stylists = await knex.select("*").from("stylists");
 
         res.render("admin", {
           stylists: stylists,
           stylFName: stylFName,
+          styleID: styleID, // Pass styleID to the template
           messages: {
             success: req.flash("success"),
             error: req.flash("error"),
@@ -193,6 +205,42 @@ app.get("/admin", checkAdmin, checkAuthentication, async (req, res) => {
     }
   } else {
     res.status(403).send("Access denied");
+  }
+});
+
+app.get("/user", checkAuthentication, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    // Fetch the logged-in user's details from the database
+    const user = await knex("stylists")
+      .select(
+        "stylFName",
+        "stylLName",
+        "styleID",
+        "stylTel",
+        "email",
+        "password",
+        "calLink",
+        "styleID"
+      ) // Include styleID in the select
+      .where({ styleID: userId })
+      .first();
+
+    if (user) {
+      res.render("user", {
+        user: user,
+        messages: {
+          success: req.flash("success"),
+          error: req.flash("error"),
+        },
+      });
+    } else {
+      res.status(404).send("User not found in the database");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching user data");
   }
 });
 
@@ -269,60 +317,55 @@ app.post("/submit-form", async (req, res) => {
   }
 });
 
-// Route to display the form for editing an existing stylist
-app.get("/editUser/:id", async (req, res) => {
-  const { id } = req.params;
+// // Route to display the form for editing an existing stylist
+// app.get("/editUser/:styleID", checkAuthentication, async (req, res) => {
+//   const { id } = req.params;
 
-  try {
-    const stylist = await knex("stylists").where("id", id).first();
+//   try {
+//     const stylist = await knex("stylists").where("id", id).first();
 
-    if (!stylist) {
-      return res.status(404).send("Stylist not found");
-    }
+//     if (!stylist) {
+//       return res.status(404).send("Stylist not found");
+//     }
 
-    res.render("edit-stylist", { stylist }); // You already have 'edit-stylist.ejs'
-  } catch (error) {
-    console.error("Failed to find stylist:", error);
-    res.status(500).send("Failed to find stylist.");
-  }
-});
+//     res.render("edit-user", { stylist }); // You already have 'edit-stylist.ejs'
+//   } catch (error) {
+//     console.error("Failed to find stylist:", error);
+//     res.status(500).send("Failed to find stylist.");
+//   }
+// });
 
 // POST Route to handle the updating of a stylist's information
-app.post(
-  "/editUser/:styleID",
-  checkAdmin,
-  checkAuthentication,
-  async (req, res) => {
-    const styleID = req.params.styleID;
-    let { stylFName, stylLName, stylTel, email, calLink, admin } = req.body;
+// app.post("/editUser/:styleID", checkAuthentication, async (req, res) => {
+//   const styleID = req.params.styleID;
+//   let { stylFName, stylLName, stylTel, email, calLink, admin } = req.body;
 
-    stylFName = stylFName.toUpperCase(); // Convert to uppercase
-    stylLName = stylLName.toUpperCase(); // Convert to uppercase
-    email = email.toUpperCase(); // Convert to uppercase
+//   stylFName = stylFName.toUpperCase(); // Convert to uppercase
+//   stylLName = stylLName.toUpperCase(); // Convert to uppercase
+//   email = email.toUpperCase(); // Convert to uppercase
 
-    // Handle the absence of the 'admin' checkbox
-    const isAdmin = admin === "true"; // If 'admin' is present and equals "true", set isAdmin to true. Otherwise, false.
+//   // Handle the absence of the 'admin' checkbox
+//   const isAdmin = admin === "true"; // If 'admin' is present and equals "true", set isAdmin to true. Otherwise, false.
 
-    try {
-      // Logic to update the stylist's details in the database
-      await knex("stylists").where("styleID", styleID).update({
-        stylFName: stylFName,
-        stylLName: stylLName,
-        stylTel: stylTel,
-        email: email,
-        calLink: calLink,
-        admin: isAdmin, // Use the isAdmin variable here
-      });
+//   try {
+//     // Logic to update the stylist's details in the database
+//     await knex("stylists").where("styleID", styleID).update({
+//       stylFName: stylFName,
+//       stylLName: stylLName,
+//       stylTel: stylTel,
+//       email: email,
+//       calLink: calLink,
+//       admin: isAdmin, // Use the isAdmin variable here
+//     });
 
-      req.flash("success", "Stylist updated successfully!");
-      res.redirect("/admin"); // Redirect after successful update
-    } catch (error) {
-      console.error(error);
-      req.flash("error", "Server error occurred while updating stylist");
-      res.redirect("/admin"); // Redirect also in case of an error
-    }
-  }
-);
+//     req.flash("success", "Stylist updated successfully!");
+//     res.redirect("/user"); // Redirect after successful update
+//   } catch (error) {
+//     console.error(error);
+//     req.flash("error", "Server error occurred while updating stylist");
+//     res.redirect("/user"); // Redirect also in case of an error
+//   }
+// });
 
 // GET route to add stylist
 app.get("/addStylist", checkAdmin, checkAuthentication, (req, res) => {
@@ -361,64 +404,125 @@ app.post("/addStylist", checkAdmin, checkAuthentication, async (req, res) => {
 });
 
 // GET route to delete editing stylist
-app.get(
-  "/editStylist/:styleID",
-  checkAdmin,
-  checkAuthentication,
-  async (req, res) => {
-    const styleID = req.params.styleID;
+app.get("/editStylist/:styleID", checkAuthentication, async (req, res) => {
+  const loggedInUserId = req.session.userId; // Assuming this is the logged-in user's ID
+  const styleID = req.params.styleID;
+  const isAdmin = req.session.isAdmin; // Assuming you store admin status in the session
 
-    try {
-      // Fetch the stylist details from the database using the styleID
-      const stylist = await knex("stylists").where("styleID", styleID).first();
+  try {
+    const stylist = await knex("stylists").where("styleID", styleID).first();
 
-      if (stylist) {
-        res.render("editStylist", { stylist });
-      } else {
-        res.status(404).send("Stylist not found");
-      }
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .send("Server error occurred while fetching stylist details");
+    if (!stylist) {
+      return res.status(404).send("Stylist not found");
     }
+
+    // Check if the user is either an admin or the stylist themselves
+    if (isAdmin || stylist.styleID === loggedInUserId) {
+      res.render("editStylist", { stylist });
+    } else {
+      res.status(403).send("Access denied");
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send("Server error occurred while fetching stylist details");
   }
-);
+});
 
 // POST route to editing stylist
-app.post(
-  "/editStylist/:styleID",
-  checkAdmin,
-  checkAuthentication,
-  async (req, res) => {
-    const styleID = req.params.styleID;
-    let { stylFName, stylLName, stylTel, email, calLink } = req.body;
-    stylFName = stylFName.toUpperCase();
-    stylLName = stylLName.toUpperCase();
-    email = email.toUpperCase();
+app.post("/editStylist/:styleID", checkAuthentication, async (req, res) => {
+  const styleID = req.params.styleID;
+  let { stylFName, stylLName, stylTel, email, calLink } = req.body;
+  stylFName = stylFName.toUpperCase();
+  stylLName = stylLName.toUpperCase();
+  email = email.toUpperCase();
 
-    // Check if 'admin' checkbox was checked
-    const isAdmin = !!req.body.admin; // Will be true if 'admin' is present, false otherwise
+  // Check if 'admin' checkbox was checked
+  const isAdmin = !!req.body.admin; // Will be true if 'admin' is present, false otherwise
 
-    try {
-      await knex("stylists").where("styleID", styleID).update({
-        stylFName,
-        stylLName,
-        stylTel,
-        email,
-        calLink,
-        admin: isAdmin,
-      });
+  try {
+    await knex("stylists").where("styleID", styleID).update({
+      stylFName,
+      stylLName,
+      stylTel,
+      email,
+      calLink,
+      admin: isAdmin,
+    });
 
-      // Redirect back to the /admin page after successful update
-      res.redirect("/admin");
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Error updating stylist");
-    }
+    // Redirect back to the /admin page after successful update
+    res.redirect("/admin");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating stylist");
   }
-);
+});
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+    }
+    // Redirect to the login page after destroying the session
+    res.redirect("/login");
+  });
+});
+
+// GET route to delete editing user
+app.get("/editUser/:styleID", checkAuthentication, async (req, res) => {
+  const loggedInUserId = req.session.userId; // Assuming this is the logged-in user's ID
+  const styleID = req.params.styleID;
+  const isAdmin = req.session.isAdmin; // Assuming you store admin status in the session
+
+  try {
+    const stylist = await knex("stylists").where("styleID", styleID).first();
+
+    if (!stylist) {
+      return res.status(404).send("Stylist not found");
+    }
+
+    // Check if the user is either an admin or the stylist themselves
+    if (isAdmin || stylist.styleID === loggedInUserId) {
+      res.render("editUser", { stylist });
+    } else {
+      res.status(403).send("Access denied");
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send("Server error occurred while fetching stylist details");
+  }
+});
+
+// POST route to editing user
+app.post("/editUser/:styleID", checkAuthentication, async (req, res) => {
+  const styleID = req.params.styleID;
+  let { stylFName, stylLName, stylTel, email, calLink } = req.body;
+  stylFName = stylFName.toUpperCase();
+  stylLName = stylLName.toUpperCase();
+  email = email.toUpperCase();
+
+  // Check if 'admin' checkbox was checked
+  const isAdmin = !!req.body.admin; // Will be true if 'admin' is present, false otherwise
+
+  try {
+    await knex("stylists").where("styleID", styleID).update({
+      stylFName,
+      stylLName,
+      stylTel,
+      email,
+      calLink,
+      admin: isAdmin,
+    });
+
+    // Redirect back to the /admin page after successful update
+    res.redirect("/user");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating stylist");
+  }
+});
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -432,6 +536,7 @@ app.get("/logout", (req, res) => {
 // Add this route in your index.js file
 app.get("/stylist/:id", checkAuthentication, async (req, res) => {
   const stylistId = req.params.id;
+  const isAdmin = req.session.isAdmin; // Fetch admin status from the session
 
   try {
     // Retrieve client information based on stylistId
@@ -440,29 +545,140 @@ app.get("/stylist/:id", checkAuthentication, async (req, res) => {
       .select("*");
 
     // Render a page with client information
-    res.render("stylist", { clients, stylistId });
+    res.render("stylist", {
+      clients,
+      stylistId,
+      isAdmin: isAdmin, // Pass this flag to the template
+
+      formatTimestamp: formatTimestamp,
+    });
   } catch (error) {
     console.error("Failed to retrieve client information:", error);
     res.status(500).send("Failed to retrieve client information.");
   }
 });
 
-// Add this route in your index.js file
 app.get("/clientInfo", checkAuthentication, async (req, res) => {
   const stylistId = req.query.stylistId;
   const resId = req.query.resId;
 
   try {
-    // Retrieve client information based on resId
+    // Retrieve client information along with service description based on resId
     const client = await knex("surveyResponse")
-      .where("resID", resId)
+      .join(
+        "serviceDescription",
+        "surveyResponse.servID",
+        "=",
+        "serviceDescription.servID"
+      )
+      .where("surveyResponse.resID", resId)
+      .select("surveyResponse.*", "serviceDescription.serviceDescription") // Select all columns from surveyResponse and serviceDescription from serviceDescription table
       .first();
 
-    // Render a page with the client's surveyResponse details
-    res.render("clientInfo", { client, stylistId });
+    // Check if the client data is found
+    if (!client) {
+      return res.status(404).send("Client information not found.");
+    }
+
+    // Render a page with the client's surveyResponse details and service description
+    // Also pass the formatTimestamp function for use in the EJS template
+    res.render("clientInfo", {
+      client,
+      stylistId,
+      formatTimestamp: formatTimestamp,
+      formatDate,
+    });
   } catch (error) {
     console.error("Failed to retrieve client information:", error);
     res.status(500).send("Failed to retrieve client information.");
   }
 });
+// Route to render the survey.sql EJS template
+app.get("/survey", checkAuthentication, checkAdmin, async (req, res) => {
+  try {
+    // Fetch all service descriptions
+    const services = await knex.select("*").from("services");
+    res.render("survey", { services }); // Pass the retrieved services to the template
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching service descriptions");
+  }
+});
 
+// Route to handle adding a new service description
+app.post("/add-service", checkAuthentication, async (req, res) => {
+  const { description } = req.body;
+  try {
+    await knex("services").insert({ description }); // Make sure "services" is your actual table name
+    res.redirect("/survey");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error adding service description");
+  }
+});
+
+// Route to handle deleting a service description
+app.post(
+  "/delete-service/:servicesID",
+  checkAuthentication,
+  checkAdmin,
+  async (req, res) => {
+    const { servicesID } = req.params;
+    try {
+      await knex("services").where("servicesID", servicesID).del(); // Make sure "servicesID" is your actual column name for the ID
+      res.redirect("/survey");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error deleting service description");
+    }
+  }
+);
+
+// Route to render the edit survey page
+app.get(
+  "/edit-survey/:servicesID",
+  checkAuthentication,
+  checkAdmin,
+  async (req, res) => {
+    const { servicesID } = req.params;
+
+    try {
+      const service = await knex("services")
+        .where("servicesID", servicesID)
+        .first();
+      if (!service) {
+        return res.status(404).send("Service not found.");
+      }
+
+      // Render the editingSurvey page, passing in the service data
+      res.render("editingSurvey", { service });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error fetching service for edit");
+    }
+  }
+);
+
+// Route to handle updating the survey information
+app.post(
+  "/update-survey/:servicesID",
+  checkAuthentication,
+  checkAdmin,
+  async (req, res) => {
+    const { servicesID } = req.params;
+    const updatedData = {
+      description: req.body.description,
+      // Add other fields as necessary
+    };
+
+    try {
+      await knex("services")
+        .where("servicesID", servicesID)
+        .update(updatedData);
+      res.redirect("/survey"); // Redirect back to the survey view
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error updating service");
+    }
+  }
+);

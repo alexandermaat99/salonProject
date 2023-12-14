@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Descriptions</title>
+  </head>
+  <body>
+    <a href="/admin" class="back-button">Back</a>
+    <h1>Service Descriptions</h1>
+
+    <form action="/add-service" method="post">
+      <input
+        type="text"
+        name="description"
+        placeholder="Add a new service description"
+        required
+      />
+      <button type="submit">Add Service</button>
+    </form>
+
+    <ul>
+      <% services.forEach(service => { %>
+      <li>
+        <%= service.description %>
+        <!-- Post to the delete route with the service ID -->
+        <form action="/delete-service/<%= service.servicesID %>" method="post">
+          <button type="submit">Delete</button>
+        </form>
+        <form action="/edit-survey/<%= service.servicesID %>" method="get">
+          <button type="submit">Edit</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

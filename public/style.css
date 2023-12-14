@@ -285,6 +285,9 @@ input:checked + .slider:before {
   padding: 10px; /* Add padding for spacing between items */
   z-index: 1; /* Set a higher z-index value */
   /* Add other styling properties as needed */
+  padding: 20px;
+  font-size: x-large;
+  border-radius: 5px;
 }
 
 .logout-button {
@@ -292,4 +295,9 @@ input:checked + .slider:before {
   margin-top: 10px; /* Add margin to separate it from the "Clients" link */
   z-index: 2; /* Set a higher z-index value than the "menu" */
   /* Add other styling properties as needed */
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }

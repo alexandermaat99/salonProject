@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="mainForm">
-      <h1 id="title">Riv and Co.</h1>
+      <img id="topPhoto" src="/public/content/Group 25.png" alt="Riv & Co" />
       <form action="/submit-form" method="post">
         <!-- first name  -->
 
@@ -96,7 +96,7 @@
         </div>
         <br /><br />
 
-        <!-- File Inputs -->
+        <!-- File Inputs
         <label for="currentHairPhoto"
           >*Upload a photo of your current hair in natural lighting. No selfies
           or filters:</label
@@ -113,7 +113,7 @@
           type="file"
           id="hairInspirationPhoto"
           name="hairInspirationPhoto"
-        /><br /><br />
+        /><br /><br /> -->
 
         <!-- date input for last color service -->
         <label for="lastColorServiceDate"
@@ -121,7 +121,7 @@
         >
         <input type="date" id="dateLastServ" name="dateLastServ" /><br /><br />
 
-        <p>Do you have permanent color in your hair?</p>
+        <p id="permColor">Do you have permanent color in your hair?</p>
         <input type="radio" id="yes" name="permColor" value="true" />
         <label for="yes">Yes</label><br />
         <input type="radio" id="no" name="permColor" value="false" />
@@ -129,47 +129,67 @@
 
         <!-- Hair Description Choices -->
         <h3>How would you describe your hair?</h3>
-        <p>Please select all that apply:</p>
+        <p id="hairDesP">Please select all that apply:</p>
 
         <div class="hairDescription">
           <label
-            ><input type="checkbox" name="hairDescription[]" value="1" />
+            ><input type="checkbox" name="hairDescription[]" value="1" /><span
+              class="custom-checkbox"
+            ></span>
             Fine</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="2" />
+            ><input type="checkbox" name="hairDescription[]" value="2" /><span
+              class="custom-checkbox"
+            ></span>
             Medium</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="3" />
+            ><input type="checkbox" name="hairDescription[]" value="3" /><span
+              class="custom-checkbox"
+            ></span>
             Thick</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="4" />
+            ><input type="checkbox" name="hairDescription[]" value="4" /><span
+              class="custom-checkbox"
+            ></span>
             Coarse</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="5" />
+            ><input type="checkbox" name="hairDescription[]" value="5" /><span
+              class="custom-checkbox"
+            ></span>
             Straight</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="6" />
+            ><input type="checkbox" name="hairDescription[]" value="6" /><span
+              class="custom-checkbox"
+            ></span>
             Wavy</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="7" />
+            ><input type="checkbox" name="hairDescription[]" value="7" /><span
+              class="custom-checkbox"
+            ></span>
             Curly</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="8" />
+            ><input type="checkbox" name="hairDescription[]" value="8" /><span
+              class="custom-checkbox"
+            ></span>
             Dry</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="9" />
+            ><input type="checkbox" name="hairDescription[]" value="9" /><span
+              class="custom-checkbox"
+            ></span>
             Oily</label
           ><br />
           <label
-            ><input type="checkbox" name="hairDescription[]" value="10" />
+            ><input type="checkbox" name="hairDescription[]" value="10" /><span
+              class="custom-checkbox"
+            ></span>
             Damaged</label
           ><br />
         </div>

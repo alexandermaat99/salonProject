@@ -7,6 +7,9 @@
     <title>Stylist View</title>
   </head>
   <body>
+    <form action="<%= isAdmin ? '/admin' : '/user' %>" method="get">
+      <button type="submit">Back</button>
+    </form>
     <h1>Client Information for Stylist <%= stylistId %></h1>
 
     <table>
@@ -21,21 +24,21 @@
       </thead>
       <tbody>
         <% clients.forEach((client) => { %>
-          <tr>
-            <td><%= client.timecreated %></td>
-            <td><%= client.cusFName %></td>
-            <td><%= client.cusLName %></td>
-            <td><%= client.cusemail %></td>
-            <td>
-              <td>
-                <form action="/clientInfo" method="get">
-                  <input type="hidden" name="resId" value="<%= client.resID %>">
-                  <input type="hidden" name="stylistId" value="<%= stylistId %>">
-                  <button type="submit">Client Details</button>
-                </form>
-              </td>
-            <!-- Add more cells based on your client information -->
-          </tr>
+        <tr>
+          <td><%= formatTimestamp(client.timeCreated) %></td>
+          <td><%= client.cusFName %></td>
+          <td><%= client.cusLName %></td>
+          <td><%= client.cusEmail %></td>
+          <td></td>
+          <td>
+            <form action="/clientInfo" method="get">
+              <input type="hidden" name="resId" value="<%= client.resID %>" />
+              <input type="hidden" name="stylistId" value="<%= stylistId %>" />
+              <button type="submit">Client Details</button>
+            </form>
+          </td>
+          <!-- Add more cells based on your client information -->
+        </tr>
         <% }); %>
       </tbody>
     </table>

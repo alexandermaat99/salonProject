@@ -1,12 +1,18 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
   text-align: center;
+  background-color: #2d2d2d; /* Light grey background */
+  color: white;
+}
+
+input#cusTel {
+  margin-bottom: 2vh;
 }
 
 .custom-select-wrapper {
   position: relative;
   user-select: none;
+  margin-bottom: 2vh;
 }
 
 .custom-select {
@@ -23,8 +29,8 @@ body {
   padding: 0 22px;
   font-size: 22px;
   font-weight: 300;
-  color: #333;
-  background: #fff;
+  color: white; /* Dark grey text */
+  background: transparent; /* White background for the dropdown trigger */
   border-radius: 4px;
   cursor: pointer;
 }
@@ -40,11 +46,13 @@ body {
   background: #fff;
   transition: all 0.4s;
   z-index: 5;
+  color: #333; /* Dark grey text for options */
 }
 
 .custom-select.open .custom-options {
   display: flex;
   flex-direction: column;
+  background-color: #e0e0e0; /* Light grey background for hover and selected */
 }
 
 .custom-option {
@@ -78,18 +86,24 @@ body {
   width: 0.15rem;
   height: 100%;
   transition: all 0.2s;
+  background-color: #333; /* Dark grey arrows */
+}
+
+input[type="submit"] {
+  background-color: #007bff; /* Blue background for submit button */
+  color: white;
 }
 
 .arrow:before {
   left: -5px;
   transform: rotate(-45deg);
-  background-color: #333;
+  background-color: white;
 }
 
 .arrow:after {
   left: 5px;
   transform: rotate(45deg);
-  background-color: #333;
+  background-color: white;
 }
 
 .custom-select__trigger span {
@@ -115,4 +129,77 @@ body {
 
 .custom-select.open .arrow:after {
   transform: rotate(-45deg);
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  color: rgb(217, 217, 217);
+  /* border-width: 0 0 2px; */
+  /* outline: 0; */
+  border-bottom: 2px solid #eee;
+  width: 70%;
+  padding: 10px;
+}
+
+input::placeholder {
+  color: rgb(197, 197, 197);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: white;
+  background-color: white;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+
+.hairDescription {
+  text-align: left;
+}
+
+.hairDescription label {
+  /* padding: 50px; */
+  margin: 33vw;
+}
+button#submitForm {
+  width: 70vw;
+  padding: 5px;
+  font-size: medium;
+}
+
+button#loginButton {
+  background-color: #2d2d2d;
+  border: none;
+  color: white;
+}
+
+input#medCond {
+  margin-bottom: 2vh;
+}
+
+h3 {
+  margin-top: 5vh;
+}
+
+#topPhoto {
+  padding: 20px;
+  width: 80vw;
+}
+
+#hairDesP {
+  margin: none;
+}
+
+#permColor {
+  margin-top: 5vh;
 }

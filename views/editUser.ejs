@@ -17,12 +17,12 @@
   <body>
     <div class="container">
       <header class="header">
-        <a href="/admin" class="back-button material-icons-round">arrow_back</a>
+        <a href="/user" class="back-button material-icons-round">arrow_back</a>
 
         <h1>Edit Stylist</h1>
       </header>
       <form
-        action="/editStylist/<%= stylist.styleID %>"
+        action="/editUser/<%= stylist.styleID %>"
         method="POST"
         class="form-stylist"
       >
@@ -63,7 +63,7 @@
 
         <label for="password">Password:</label>
         <input
-          type="password"
+          type="text"
           id="password"
           name="password"
           value="<%= stylist.password %>"

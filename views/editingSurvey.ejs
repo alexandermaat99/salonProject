@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Survey</title>
+  </head>
+  <body>
+    <a href="/survey" class="back-button">Back to Survey</a>
+
+    <!-- Use 'service' here, not 'services' -->
+    <h1>Edit Survey for <%= service.description %></h1>
+    <form action="/update-survey/<%= service.servicesID %>" method="post">
+      <!-- Include input field pre-populated with the service's current data -->
+      <input
+        type="text"
+        name="description"
+        value="<%= service.description %>"
+        placeholder="Service Description"
+        required
+      />
+      <button type="submit">Update Survey</button>
+    </form>
+  </body>
+</html>
