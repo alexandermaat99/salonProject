@@ -38,21 +38,21 @@
       <!-- User Profile Section -->
       <section class="user-profile">
         <h2>Your Profile</h2>
-        <p>
-          First: <%= user.stylFName %> <br />
-          Last: <%= user.stylLName %> <br />
-          email: <%=user.email %> <br />
-          Phone: <%= user.stylTel %> <br />
-          Calendar Link: <%=user.calLink %> <br />
-          Password: <%= user.password %> <br />
-          <!-- Add Last Name if available -->
-        </p>
-        <!-- Add more user details here if needed -->
+        <div class="profile-details">
+          <p>First: <%= user.stylFName %></p>
+          <p>Last: <%= user.stylLName %></p>
+          <p>Email: <%= user.email %></p>
+          <p>Phone: <%= user.stylTel %></p>
+          <p>Calendar Link: <%= user.calLink %></p>
+          <p>Password: <%= user.password %></p>
+        </div>
 
         <!-- Edit Profile Button -->
-        <form action="/editUser/<%= user.styleID %>" method="get">
-          <button type="submit">Edit Profile</button>
-        </form>
+        <div class="edit-button-container">
+          <form action="/editUser/<%= user.styleID %>" method="get">
+            <button type="submit" class="edit-profile-btn">Edit Profile</button>
+          </form>
+        </div>
       </section>
     </div>
 

@@ -544,12 +544,23 @@ app.get("/stylist/:id", checkAuthentication, async (req, res) => {
       .where("styleID", stylistId)
       .select("*");
 
+    // Retrieve stylist information
+    const stylistData = await knex("stylists")
+      .select("stylFName")
+      .where("styleID", stylistId)
+      .first(); // Use first() to get a single object
+
+    // Check if stylistData is available
+    if (!stylistData) {
+      return res.status(404).send("Stylist not found");
+    }
+
     // Render a page with client information
     res.render("stylist", {
-      clients,
-      stylistId,
-      isAdmin: isAdmin, // Pass this flag to the template
-
+      clients: clients,
+      stylistId: stylistId,
+      stylFName: stylistData.stylFName, // Pass the stylist's first name
+      isAdmin: isAdmin,
       formatTimestamp: formatTimestamp,
     });
   } catch (error) {
@@ -682,3 +693,32 @@ app.post(
     }
   }
 );
+
+// delete client route
+// Route to delete a client
+// Route to delete a client
+app.post("/deleteClient/:resID", checkAuthentication, async (req, res) => {
+  const resId = req.params.resID;
+  const stylistId = req.session.userId; // Assuming stylistId is stored in the session
+
+  try {
+    // Optional: Check if the stylist is authorized to delete this client
+    // This is important for security and data integrity
+    const client = await knex("surveyResponse")
+      .where({ resID: resId, styleID: stylistId })
+      .first();
+
+    if (!client) {
+      return res.status(404).send("Client not found or unauthorized access");
+    }
+
+    // Perform the deletion
+    await knex("surveyResponse").where("resID", resId).del();
+
+    // Redirect back to the stylist page or send a success message
+    res.redirect("/stylist/" + stylistId);
+  } catch (error) {
+    console.error("Error deleting client:", error);
+    res.status(500).send("Failed to delete client.");
+  }
+});
