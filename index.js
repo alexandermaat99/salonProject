@@ -276,11 +276,12 @@ app.get("/", async (req, res) => {
 //form submission
 app.post("/submit-form", async (req, res) => {
   try {
+    // Parse and validate styleID and servID
+    const styleID = req.body.styleID ? parseInt(req.body.styleID, 10) : null;
+    const servID = req.body.servID ? parseInt(req.body.servID, 10) : null;
+
     // Begin transaction
     await knex.transaction(async (trx) => {
-      // Extract styleID and servicesID from req.body
-      const { styleID, servicesID } = req.body;
-
       // Insert into 'surveyResponse' table
       const [responseIdObject] = await trx("surveyResponse")
         .insert({
@@ -292,8 +293,8 @@ app.post("/submit-form", async (req, res) => {
           timeCreated: new Date(),
           permColor: req.body.permColor,
           medCond: req.body.medCond,
-          styleID: styleID, // Use extracted value
-          servicesID: servicesID, // Use extracted value
+          styleID: styleID, // Use parsed and validated value
+          servID: servID, // Use parsed and validated value
         })
         .returning("resID");
 
@@ -309,12 +310,17 @@ app.post("/submit-form", async (req, res) => {
       }
     });
 
-    // Send a success response
-    res.send("Form submitted successfully");
+    // Send success response
+    res.redirect("/success");
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error processing your request");
+    // Handle errors
+    console.error("Error submitting form: ", error);
+    res.status(500).send("An error occurred while submitting the form.");
   }
+});
+
+app.get("/success", (req, res) => {
+  res.render("success");
 });
 
 // // Route to display the form for editing an existing stylist
@@ -630,13 +636,13 @@ app.post("/add-service", checkAuthentication, async (req, res) => {
 
 // Route to handle deleting a service description
 app.post(
-  "/delete-service/:servicesID",
+  "/delete-service/:servID",
   checkAuthentication,
   checkAdmin,
   async (req, res) => {
-    const { servicesID } = req.params;
+    const { servID } = req.params;
     try {
-      await knex("services").where("servicesID", servicesID).del(); // Make sure "servicesID" is your actual column name for the ID
+      await knex("services").where("servID", servID).del(); // Make sure "servID" is your actual column name for the ID
       res.redirect("/survey");
     } catch (error) {
       console.error(error);
@@ -647,16 +653,14 @@ app.post(
 
 // Route to render the edit survey page
 app.get(
-  "/edit-survey/:servicesID",
+  "/edit-survey/:servID",
   checkAuthentication,
   checkAdmin,
   async (req, res) => {
-    const { servicesID } = req.params;
+    const { servID } = req.params;
 
     try {
-      const service = await knex("services")
-        .where("servicesID", servicesID)
-        .first();
+      const service = await knex("services").where("servID", servID).first();
       if (!service) {
         return res.status(404).send("Service not found.");
       }
@@ -672,20 +676,18 @@ app.get(
 
 // Route to handle updating the survey information
 app.post(
-  "/update-survey/:servicesID",
+  "/update-survey/:servID",
   checkAuthentication,
   checkAdmin,
   async (req, res) => {
-    const { servicesID } = req.params;
+    const { servID } = req.params;
     const updatedData = {
       description: req.body.description,
       // Add other fields as necessary
     };
 
     try {
-      await knex("services")
-        .where("servicesID", servicesID)
-        .update(updatedData);
+      await knex("services").where("servID", servID).update(updatedData);
       res.redirect("/survey"); // Redirect back to the survey view
     } catch (error) {
       console.error(error);

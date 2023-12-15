@@ -85,14 +85,14 @@
               <% services.forEach(function(service, index) { %>
               <span
                 class="custom-option <%= index === 0 ? 'selected' : '' %>"
-                data-value="<%= service.servicesID %>"
+                data-value="<%= service.servID %>"
               >
                 <%= service.description %>
               </span>
               <% }); %>
             </div>
           </div>
-          <input type="hidden" name="servicesID" id="servicesID" value="" />
+          <input type="hidden" name="servID" id="servID" value="" />
         </div>
         <br /><br />
 

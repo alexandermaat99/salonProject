@@ -42,7 +42,7 @@
         </div>
         <div class="service-actions">
           <form
-            action="/edit-survey/<%= service.servicesID %>"
+            action="/edit-survey/<%= service.servID %>"
             method="get"
             class="action-form"
           >
@@ -52,7 +52,7 @@
           </form>
           <!-- Delete Form -->
           <form
-            action="/delete-service/<%= service.servicesID %>"
+            action="/delete-service/<%= service.servID %>"
             method="post"
             class="action-form"
             onsubmit="return confirmDelete();"
